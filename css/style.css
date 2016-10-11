@@ -1,0 +1,128 @@
+* {
+	position: relative;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+	margin-top: 0;
+}
+
+.wrapper {
+	display: flex;
+	flex-flow: wrap row;
+	justify-content: space-between;
+}
+
+.team-viewer {
+	width: 400px;
+	cursor: none;
+}
+
+.team-viewer .pkmn {
+	height: 100px;
+	display: flex;
+	flex-low: nowrap row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 5px 0;
+	padding: 0 10px;
+	border-radius: 10px;
+	background-color: #333;
+	background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 49%, rgba(255,255,255,0.25) 50%, rgba(0,0,0,0) 100%);
+	font-family: Audiowide, cursive;
+	color: #fff;
+	overflow: hidden;
+}
+
+.pkmn[data-color=""] {
+	background-image: url(../default.png);
+	background-size: cover;
+	background-position: 50% 50%;
+	box-shadow: -5px -5px 10px #000 inset, 5px 5px 10px #fff inset;
+}
+
+.team-viewer .name {
+	font-size: 32px;
+	text-shadow: 2px 2px #000;
+	position: absolute;
+	top: 5px;
+}
+
+.team-viewer .types {
+	position: absolute;
+	bottom: 10px;
+}
+
+.team-viewer .sprite {
+	filter: drop-shadow(0 0 10px #fff);
+}
+
+.pkmn[data-color="black"] {background-color: #333;}
+.pkmn[data-color="blue"] {background-color: #00c;}
+.pkmn[data-color="brown"] {background-color: #840;}
+.pkmn[data-color="gray"] {background-color: #888;}
+.pkmn[data-color="green"] {background-color: #080;}
+.pkmn[data-color="pink"] {background-color: #e0e;}
+.pkmn[data-color="purple"] {background-color: #80c;}
+.pkmn[data-color="red"] {background-color: #c00;}
+.pkmn[data-color="white"] {background-color: #eee;}
+.pkmn[data-color="yellow"] {background-color: #ee0;}
+
+.type {
+	display: inline-block;
+	padding: 3px;
+	margin-right: 5px;
+	border-radius: 5px;
+	border: 2px solid;
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: bold;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: 2px 2px #000;
+	width: 5em;
+	text-align: center;
+}
+
+.type-normal {background-color: #A8A878; border-color: #6D6D4E;}
+.type-fighting {background-color: #C03028; border-color: #7D1F1A;}
+.type-flying {background-color: #A890F0; border-color: #6D5E9C;}
+.type-poison {background-color: #A040A0; border-color: #682A68;}
+.type-ground {background-color: #E0C068; border-color: #927D44;}
+.type-rock {background-color: #B8A038; border-color: #786824;}
+.type-bug {background-color: #A8B820; border-color: #6D7815;}
+.type-ghost {background-color: #705898; border-color: #493963;}
+.type-steel {background-color: #B8B8D0; border-color: #787887;}
+.type-fire {background-color: #F08030; border-color: #9C531F;}
+.type-water {background-color: #6890F0; border-color: #445E9C;}
+.type-grass {background-color: #78C850; border-color: #4E8234;}
+.type-electric {background-color: #F8D030; border-color: #A1871F;}
+.type-psychic {background-color: #F85888; border-color: #A13959;}
+.type-ice {background-color: #98D8D8; border-color: #638D8D;}
+.type-dragon {background-color: #7038F8; border-color: #4924A1;}
+.type-dark {background-color: #705848; border-color: #49392F;}
+.type-fairy {background-color: #EE99AC; border-color: #9B6470;}
+.type-nuclear {background-color: #3f0; border-color: #72ff4e;}
+
+.team-editor,
+.global-settings {
+	border: 1px solid #000;
+	padding: 10px;
+}
+
+.pkmn-remove {
+	color: #f00;
+	font-weight: bold;
+}
+
+.global-settings input[type="number"] {
+	width: 5em;
+	margin-right: 1em;
+}
+
+.pkmn-settings:first-child .move-down {
+	float: right;
+}

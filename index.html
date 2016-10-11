@@ -1,0 +1,120 @@
+<!doctype html>
+<html data-ng-app="Uranium">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Pokémon Uranium</title>
+		<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/style.css"/>
+		<script src="js/angular.min.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/script.js"></script>
+	</head>
+	<body>
+		<div class="wrapper" data-ng-controller="TeamController">
+			<div class="team-viewer">
+				<div data-ng-repeat="pkmn in team" class="pkmn" data-color="{{pkmn.color}}">
+					<span class="name">{{ pkmn.displayName }}</span>
+					<div class="types">
+						<div data-ng-repeat="type in pkmn.type" class="type type-{{ type }}" >{{ translateType(type) }}</div>
+					</div>
+					<img alt="{{pkmn.name}}" src="#" data-ng-src="{{pkmn.image}}" class="sprite">
+				</div>
+			</div>
+			<div class="team-editor">
+				<div data-ng-repeat="pkmn in mockTeam" class="pkmn-settings">
+					<input type="text" placeholder="Nummer / Name" data-ng-model="pkmn.identity"/>
+					<input type="text" placeholder="Spitzname" data-ng-model="pkmn.nickname"/>
+					<button data-ng-click="apply(pkmn)" data-ng-disabled="!isValid(pkmn)">OK</button>
+					<button class="pkmn-remove" data-ng-click="remove($index)" data-ng-disabled="!team[$index].id">X</button>
+					<button data-ng-hide="$index === 0" data-ng-disabled="!team[$index].id" data-ng-click="moveUp($index)" class="move-up">▲</button>
+					<button data-ng-hide="$index === 5" data-ng-disabled="!team[$index].id" data-ng-click="moveDown($index)" class="move-down">▼</button>
+				</div>
+				<button data-ng-click="applyAll()">Alle Übernehmen</button>
+				<button data-ng-click="saveTeam()">Speichern</button>
+			</div>
+			<div class="global-settings">
+				<h2>Einstellungen</h2>
+				<input type="checkbox" data-ng-model="settings.lock" id="settings-lock"/>
+				<label for="settings-lock">Sperren</label>
+				<button data-ng-click="saveSettings()">Speichern</button>
+				<button data-ng-click="settingsReset()" data-ng-disabled="settings.lock">Reset</button>
+				<style>
+					body {
+						background: {{ settings.bgColor }};
+						color: {{ settings.textColor }};
+					}
+					.team-viewer {
+						width: {{ settings.width }}px;
+					}
+					.team-viewer .pkmn {
+						height: {{ settings.height }}px;
+						margin: {{ settings.gap }}px 0;
+						border-radius: {{ settings.radius }}px;
+					}
+					.team-viewer .pkmn .name {
+						font-size: {{ settings.nameSize }}px;
+						top: {{ settings.nameTop }}px;
+						left: {{ settings.nameLeft }}px;
+					}
+					.team-viewer .pkmn .types {
+						font-size: {{ settings.typeSize }}px;
+						bottom: {{ settings.typeBottom }}px;
+						left: {{ settings.typeLeft }}px;
+					}
+					.team-viewer .pkmn .sprite {
+						transform: scale({{ settings.spriteScale }}) translate({{ -settings.spriteX }}px);
+					}
+				</style>
+				<fieldset>
+					<label for="settings-bg-color">Hintergrundfarbe:</label>
+					<input id="settings-bg-color" type="color" data-ng-model="settings.bgColor"/>
+					<label for="settings-text-color">Schriftfarbe:</label>
+					<input id="settings-text-color" type="color" data-ng-model="settings.textColor"/>
+				</fieldset>
+				<fieldset>
+					<input type="checkbox" id="settings-auto-apply" data-ng-model="settings.autoApply"/>
+					<label for="settings-auto-apply">Positionsänderungen automatisch übernehmen</label>
+				</fieldset>
+				<fieldset>
+					<label for="settings-width">Breite:</label>
+					<input id="settings-width" type="number" data-ng-model="settings.width" data-ng-disabled="settings.lock"/>
+					<label for="settings-height">Höhe:</label>
+					<input id="settings-height" type="number" data-ng-model="settings.height" data-ng-disabled="settings.lock"/>
+				</fieldset>
+				<fieldset>
+					<label for="settings-gap">Abstand:</label>
+					<input id="settings-gap" type="number" data-ng-model="settings.gap" data-ng-disabled="settings.lock"/>
+					<label for="settings-radius">Radius:</label>
+					<input id="settings-radius" type="number" data-ng-model="settings.radius" data-ng-disabled="settings.lock"/>
+				</fieldset>
+				<fieldset>
+					<h3>Name</h3>
+					<label for="settings-name-size">Schriftgröße:</label>
+					<input id="settings-name-size" type="number" data-ng-model="settings.nameSize" data-ng-disabled="settings.lock"/>
+					<h4>Abstand</h4>
+					<label for="settings-name-left">Links:</label>
+					<input id="settings-name-left" type="number" data-ng-model="settings.nameLeft" data-ng-disabled="settings.lock"/>
+					<label for="settings-name-top">Oben:</label>
+					<input id="settings-name-top" type="number" data-ng-model="settings.nameTop" data-ng-disabled="settings.lock"/>
+				</fieldset>
+				<fieldset>
+					<h3>Typen</h3>
+					<label for="settings-type-size">Schriftgröße:</label>
+					<input id="settings-type-size" type="number" data-ng-model="settings.typeSize" data-ng-disabled="settings.lock"/>
+					<h4>Abstand</h4>
+					<label for="settings-type-left">Links:</label>
+					<input id="settings-type-left" type="number" data-ng-model="settings.typeLeft" data-ng-disabled="settings.lock"/>
+					<label for="settings-type-bottom">Unten:</label>
+					<input id="settings-type-bottom" type="number" data-ng-model="settings.typeBottom" data-ng-disabled="settings.lock"/>
+				</fieldset>
+				<fieldset>
+					<h3>Sprite</h3>
+					<label for="settings-sprite-scale">Skalierung:</label>
+					<input id="settings-sprite-scale" type="number" step="0.01" data-ng-model="settings.spriteScale" data-ng-disabled="settings.lock"/>
+					<label for="settings-sprite-x">Versatz:</label>
+					<input id="settings-sprite-x" type="number" data-ng-model="settings.spriteX" data-ng-disabled="settings.lock"/>
+				</fieldset>
+			</div>
+		</div>
+	</body>
+</html>
