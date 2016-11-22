@@ -1,4 +1,9 @@
 window.pkmnData = [{
+	"id": 0,
+	"name": "Ei",
+	"color": "green"
+},
+{
 	"id": 1,
 	"name": "Orchynx",
 	"color": "green",
