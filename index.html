@@ -25,9 +25,9 @@
 					<input type="text" placeholder="Nummer / Name" data-ng-model="pkmn.identity"/>
 					<input type="text" placeholder="Spitzname" data-ng-model="pkmn.nickname"/>
 					<button data-ng-click="apply(pkmn)" data-ng-disabled="!isValid(pkmn)">OK</button>
-					<button class="pkmn-remove" data-ng-click="remove($index)" data-ng-disabled="!team[$index].id">X</button>
-					<button data-ng-hide="$index === 0" data-ng-disabled="!team[$index].id" data-ng-click="moveUp($index)" class="move-up">▲</button>
-					<button data-ng-hide="$index === 5" data-ng-disabled="!team[$index].id" data-ng-click="moveDown($index)" class="move-down">▼</button>
+					<button class="pkmn-remove" data-ng-click="remove($index)" data-ng-disabled="typeof team[$index].id !=== 'number'">X</button>
+					<button data-ng-hide="$index === 0" data-ng-disabled="typeof team[$index].id !=== 'number'" data-ng-click="moveUp($index)" class="move-up">▲</button>
+					<button data-ng-hide="$index === 5" data-ng-disabled="typeof team[$index].id !=== 'number'" data-ng-click="moveDown($index)" class="move-down">▼</button>
 				</div>
 				<button data-ng-click="applyAll()">Alle Übernehmen</button>
 				<button data-ng-click="saveTeam()">Speichern</button>
