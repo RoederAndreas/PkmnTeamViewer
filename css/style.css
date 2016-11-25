@@ -113,6 +113,18 @@ h6:first-child {
 	padding: 10px;
 }
 
+.team-editor .col-nuclear {
+	background: #cfc;
+}
+
+.team-editor .col-mega {
+	background: #fcc;
+}
+
+.team-editor .col-shiny {
+	background: #ccf;
+}
+
 .pkmn-remove {
 	color: #f00;
 	font-weight: bold;

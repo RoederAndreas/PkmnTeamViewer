@@ -76,7 +76,7 @@ app.controller('TeamController', ['$scope', function($scope) {
 	
 	$scope.apply = function(pkmn) {
 		if (!pkmn.identity) return;
-		var pokemon = new Pokemon(pkmn.identity, pkmn.nickname);
+		var pokemon = new Pokemon(pkmn);
 		var index = $scope.mockTeam.indexOf(pkmn);
 		$scope.team[index] = pokemon;
 	};
@@ -131,16 +131,19 @@ app.controller('TeamController', ['$scope', function($scope) {
 	};
 }]);
 
-var Pokemon = function(identity, nickname) {
-	var template = findPkmn(identity);
+var Pokemon = function(pkmn) {
+	var template = findPkmn(pkmn.identity);
 	if (!template) throw 'Pokemon konnte nicht erstellt werden: Name oder ID nicht gefunden';
 	
 	for (var prop in template) {
 		this[prop] = template[prop];
 	}
 	
-	this.nickname = nickname;
-	this.image = 'img/' + leadingZeroes(this.id, 3) + '.png';
+	this.nickname = pkmn.nickname;
+	this.isNuclear = pkmn.isNuclear;
+	this.isMega = pkmn.isMega;
+	this.isShiny = pkmn.isShiny;
+	this.image = 'img/' + leadingZeroes(this.id, 3) + (this.isShiny ? 's' : '') + '.png';
 	
 	Object.defineProperty(this, 'displayName', {get: function() {
 		return this.nickname || this.name;

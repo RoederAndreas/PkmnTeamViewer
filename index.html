@@ -21,14 +21,34 @@
 				</div>
 			</div>
 			<div class="team-editor">
-				<div data-ng-repeat="pkmn in mockTeam" class="pkmn-settings">
-					<input type="text" placeholder="Nummer / Name" data-ng-model="pkmn.identity"/>
-					<input type="text" placeholder="Spitzname" data-ng-model="pkmn.nickname"/>
-					<button data-ng-click="apply(pkmn)" data-ng-disabled="!isValid(pkmn)">OK</button>
-					<button class="pkmn-remove" data-ng-click="remove($index)" data-ng-disabled="typeof team[$index].id !=== 'number'">X</button>
-					<button data-ng-hide="$index === 0" data-ng-disabled="typeof team[$index].id !=== 'number'" data-ng-click="moveUp($index)" class="move-up">▲</button>
-					<button data-ng-hide="$index === 5" data-ng-disabled="typeof team[$index].id !=== 'number'" data-ng-click="moveDown($index)" class="move-down">▼</button>
-				</div>
+				<table>
+					<thead>
+						<tr>
+							<th>Identity</th>
+							<th>Nickname</th>
+							<th><abbr title="Nuclear">N</abbr></th>
+							<th><abbr title="Mega">M</abbr></th>
+							<th><abbr title="Shiny">S</abbr></th>
+							<th>OK</th>
+							<th>X</th>
+							<th>▲</th>
+							<th>▼</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat="pkmn in mockTeam" class="pkmn-settings"></td>
+							<td><input type="text" placeholder="Nummer / Name" data-ng-model="pkmn.identity"/></td>
+							<td><input type="text" placeholder="Spitzname" data-ng-model="pkmn.nickname"/></td>
+							<td class="col-nuclear"><input type="checkbox" data-ng-model="pkmn.isNuclear"/></td>
+							<td class="col-mega"><input type="checkbox" data-ng-model="pkmn.isMega"/></td>
+							<td class="col-shiny"><input type="checkbox" data-ng-model="pkmn.isShiny"/></td>
+							<td><button data-ng-click="apply(pkmn)" data-ng-disabled="!isValid(pkmn)">OK</button></td>
+							<td><button class="pkmn-remove" data-ng-click="remove($index)" data-ng-disabled="typeof team[$index].id !=== 'number'">X</button></td>
+							<td><button data-ng-hide="$index === 0" data-ng-disabled="typeof team[$index].id !=== 'number'" data-ng-click="moveUp($index)" class="move-up">▲</button></td>
+							<td><button data-ng-hide="$index === 5" data-ng-disabled="typeof team[$index].id !=== 'number'" data-ng-click="moveDown($index)" class="move-down">▼</button></td>
+						</tr>
+					</tbody>
+				</table>
 				<button data-ng-click="applyAll()">Alle Übernehmen</button>
 				<button data-ng-click="saveTeam()">Speichern</button>
 			</div>
