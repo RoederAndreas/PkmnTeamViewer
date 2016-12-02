@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>spriteTest</title>
+    <script src="js/data.js"></script>
+    <script>
+'use strict';
+
+var addErrorFunction = function(spriteName) {
+  return function() {
+    console.log('Missing sprite: ' + spriteName);
+  };
+}
+
+function testPkmn(pkmn) {
+    if (!pkmn.id) return;
+    var num = '00' + pkmn.id;
+    num = num.substr(num.length - 3);
+    var img = new Image();
+    var img_s = new Image();
+    img.onerror = addErrorFunction(num);
+    img_s.onerror = addErrorFunction(num + 's');
+    img.src = 'img/' + num + '.png';
+    img_s.src = 'img/' + num + 's.png';
+    if (pkmn.mega) {
+      var img_m = new Image();
+      var img_ms = new Image();
+      img_m.onerror = addErrorFunction(num + 'm');
+      img_ms.onerror = addErrorFunction(num + 'ms');
+      img_m.src = 'img/' + num + 'm.png';
+      img_ms.src = 'img/' + num + 'ms.png';
+      if (pkmn.nuclear) {
+        var img_mn = new Image();
+        var img_mns = new Image();
+        img_mn.onerror = addErrorFunction(num + 'mn');
+        img_mns.onerror = addErrorFunction(num + 'mns');
+        img_mn.src = 'img/' + num + 'mn.png';
+        img_mns.src = 'img/' + num + 'mns.png';
+      }
+    }
+    if (pkmn.nuclear) {
+      var img_n = new Image();
+      var img_ns = new Image();
+      img_n.onerror = addErrorFunction(num + 'n');
+      img_ns.onerror = addErrorFunction(num + 'ns');
+      img_n.src = 'img/' + num + 'n.png';
+      img_ns.src = 'img/' + num + 'ns.png';
+    }
+}
+
+for (var pkmn of pkmnData) {
+  testPkmn(pkmn)
+}
+    </script>
+  </head>
+  <body></body>
+</html>

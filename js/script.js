@@ -143,7 +143,7 @@ var Pokemon = function(pkmn) {
 	this.isNuclear = pkmn.isNuclear;
 	this.isMega = pkmn.isMega;
 	this.isShiny = pkmn.isShiny;
-	this.image = 'img/' + leadingZeroes(this.id, 3) + (this.isShiny ? 's' : '') + '.png';
+	this.image = 'img/' + leadingZeroes(this.id, 3) + (this.isMega && this.mega ? 'm' : '') + (this.isNuclear && this.nuclear ? 'n' : '') + (this.isShiny ? 's' : '') + '.png';
 	
 	Object.defineProperty(this, 'displayName', {get: function() {
 		return this.nickname || this.name;
