@@ -145,6 +145,9 @@ var Pokemon = function(pkmn) {
 	this.isShiny = pkmn.isShiny;
 	this.image = 'img/' + leadingZeroes(this.id, 3) + (this.isMega && this.mega ? 'm' : '') + (this.isNuclear && this.nuclear ? 'n' : '') + (this.isShiny ? 's' : '') + '.png';
 	
+	// TEMPORARY
+	if (this.isNuclear) this.type[1] = 'nuclear';
+	
 	Object.defineProperty(this, 'displayName', {get: function() {
 		return this.nickname || this.name;
 	}});
