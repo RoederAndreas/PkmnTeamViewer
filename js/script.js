@@ -63,6 +63,9 @@ app.controller('TeamController', ['$scope', function($scope) {
 				if (data[i]) {
 					if (data[i].identity) $scope.mockTeam[i].identity = data[i].identity;
 					if (data[i].nickname) $scope.mockTeam[i].nickname = data[i].nickname;
+					if (data[i].isNuclear) $scope.mockTeam[i].isNuclear = true;
+					if (data[i].isMega) $scope.mockTeam[i].isMega = true;
+					if (data[i].isShiny) $scope.mockTeam[i].isShiny = true;
 				}
 			}
 		}
@@ -146,7 +149,7 @@ var Pokemon = function(pkmn) {
 	this.image = 'img/' + leadingZeroes(this.id, 3) + (this.isMega && this.mega ? 'm' : '') + (this.isNuclear && this.nuclear ? 'n' : '') + (this.isShiny ? 's' : '') + '.png';
 	
 	// TEMPORARY
-	if (this.isNuclear) this.type[1] = 'nuclear';
+	if (this.isNuclear && this.nuclear) this.type[1] = 'nuclear';
 	
 	Object.defineProperty(this, 'displayName', {get: function() {
 		return this.nickname || this.name;
